@@ -1,8 +1,5 @@
 name: Build and Deploy to GKE
-on:
-  push:
-    branches:
-      - main
+on: [push]
 env:
   PROJECT_ID: vinid-playground
   GKE_CLUSTER: hadn-gke    # Add your cluster name here.
