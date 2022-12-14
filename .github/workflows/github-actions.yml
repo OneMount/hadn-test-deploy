@@ -67,7 +67,7 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: |
-            hadnat/$IMAGE:$GITHUB_SHA
+            hadnat/${{ env.IMAGE }}:$GITHUB_SHA
 
     # Set up kustomize
     - name: Set up Kustomize
