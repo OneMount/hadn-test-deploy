@@ -76,7 +76,7 @@ jobs:
         chmod u+x ./kustomize
         curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
         chmod u+x ./kubectl
-        mv ./kubectl /usr/bin
+        sudo mv ./kubectl /usr/bin
 
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
