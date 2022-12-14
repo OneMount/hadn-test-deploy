@@ -3,7 +3,3 @@ kind: Kustomization
 resources:
 - manifests/deployment.yaml
 - manifests/service.yaml
-images:
-- name: IMAGE:TAG
-  newName: hadnat/flask-test
-  newTag: v1.0.1
