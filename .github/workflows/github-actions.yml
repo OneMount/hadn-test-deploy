@@ -42,15 +42,17 @@ jobs:
             hadnat/${{ env.IMAGE }}:${{ github.sha }}
 
   deploy-to-dev:
-    name: Build, Publish
+    name: Deploy to Dev
     # runs-on: self-hosted
     runs-on: org-runner
     needs: [build]
     environment: development
-    # if: github.ref == 'refs/heads/dev'
+    if: github.ref == 'refs/heads/dev'
     # if: startsWith(github.event.ref, 'refs/tags/v')
-
     steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
     # Set up kustomize
     - name: Set up Kustomize
       run: |-
@@ -69,16 +71,17 @@ jobs:
         kubectl get services -o wide
 
   deploy-to-prod:
-    name: Build, Publish
+    name: Deploy to Prod
     # runs-on: self-hosted
     runs-on: org-runner
     needs: [build]
     environment: production
-    # if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
     # if: startsWith(github.event.ref, 'refs/tags/v')
-
-
     steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
     # Set up kustomize
     - name: Set up Kustomize
       run: |-
