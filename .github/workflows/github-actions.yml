@@ -52,10 +52,26 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: auth
+      uses: google-github-actions/auth@v0.4.0
+      with:
+        workload_identity_provider: 'projects/343258946223/locations/global/workloadIdentityPools/gh2-pool/providers/gh2-provider'
+        service_account: 'github-runner@vinid-playground.iam.gserviceaccount.com'
+# https://iam.googleapis.com/projects/343258946223/locations/global/workloadIdentityPools/hado-github-pool/providers/hado-github-provider 
+
+    - name: get-gke-credentials
+      uses: google-github-actions/get-gke-credentials@v0.4.0
+      with:
+        cluster_name: hadn-gke
+        location: asia-east1-b
+
+    # - name: get-pods
+    #   run: kubectl get pods
+
     # Setup gcloud CLI
     - uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
       with:
-        service_account_key: ${{ secrets.GKE_SA_KEY }}
+        # service_account_key: ${{ secrets.GKE_SA_KEY }}
         project_id: ${{ env.PROJECT_ID }}
 
     # Configure Docker to use the gcloud command-line tool as a credential
@@ -67,7 +83,7 @@ jobs:
       with:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
-        credentials: ${{ secrets.GKE_SA_KEY }}
+        # credentials: ${{ secrets.GKE_SA_KEY }}
 
     # Set up kustomize
     - name: Set up Kustomize
